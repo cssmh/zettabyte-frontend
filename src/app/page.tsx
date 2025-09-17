@@ -1,54 +1,57 @@
 "use client";
-import { motion } from "framer-motion";
 
+import { motion } from "framer-motion";
 export default function Home() {
+  const stats = [
+    { name: "Total Posts", value: "100" },
+    { name: "Total Users", value: "10" },
+    { name: "Active Users", value: "7" },
+  ];
+
   return (
-    <main className="min-h-screen bg-gray-50 p-8 flex flex-col items-center">
-      <motion.h1
-        className="text-3xl font-bold mb-4 text-blue-700"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-      >
-        Welcome to Zettabyte Dashboard
-      </motion.h1>
-      <section className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <motion.div
-          className="bg-white rounded-lg shadow p-6 flex flex-col items-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="text-2xl font-semibold text-gray-700">Posts</span>
-          <span className="text-lg text-gray-500">100</span>
-        </motion.div>
-        <motion.div
-          className="bg-white rounded-lg shadow p-6 flex flex-col items-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-        >
-          <span className="text-2xl font-semibold text-gray-700">Users</span>
-          <span className="text-lg text-gray-500">10</span>
-        </motion.div>
-        <motion.div
-          className="bg-white rounded-lg shadow p-6 flex flex-col items-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.9 }}
-        >
-          <span className="text-2xl font-semibold text-gray-700">Active</span>
-          <span className="text-lg text-gray-500">5</span>
-        </motion.div>
-      </section>
+    <div>
       <motion.div
-        className="w-full max-w-xl h-32 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl flex items-center justify-center text-white text-xl font-semibold shadow-lg"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8"
       >
-        Animated Summary Card
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          Welcome to Zettabyte Dashboard
+        </h1>
+        <p className="text-gray-600">
+          Manage your content and users efficiently
+        </p>
       </motion.div>
-    </main>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {stats.map((stat, index) => (
+          <motion.div
+            key={stat.name}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-white rounded-lg shadow-md p-6"
+          >
+            <h3 className="text-lg font-semibold text-gray-600 mb-2">
+              {stat.name}
+            </h3>
+            <p className="text-3xl font-bold text-blue-600">{stat.value}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="bg-white rounded-lg shadow-md p-6"
+      >
+        <h2 className="text-xl font-semibold mb-4">Activity Overview</h2>
+        <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
+          <p className="text-gray-500">Chart visualization would go here</p>
+        </div>
+      </motion.div>
+    </div>
   );
 }
