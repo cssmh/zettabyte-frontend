@@ -40,18 +40,6 @@ export default function Home() {
           </motion.div>
         ))}
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="bg-white rounded-lg shadow-md p-6"
-      >
-        <h2 className="text-xl font-semibold mb-4">Activity Overview</h2>
-        <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
-          <p className="text-gray-500">Chart visualization would go here</p>
-        </div>
-      </motion.div>
     </div>
   );
 }
