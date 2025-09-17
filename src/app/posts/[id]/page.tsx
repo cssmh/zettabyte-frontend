@@ -29,7 +29,7 @@ const SinglePostPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <article className="bg-white text-black capitalize rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold mb-4">{post?.title}</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold mb-4">{post?.title}</h1>
         <p className="text-gray-600 mb-6">Post ID: {id}</p>
         <p className="text-lg leading-relaxed">{post?.body}</p>
       </article>

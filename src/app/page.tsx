@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 export default function Home() {
   const stats = [
@@ -16,7 +15,7 @@ export default function Home() {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2 text-balance">
           Welcome to Zettabyte Dashboard
         </h1>
         <p className="text-gray-600">
@@ -24,14 +23,14 @@ export default function Home() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.name}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white rounded-lg shadow-md p-6"
+            className="bg-white rounded-lg shadow-md p-4 md:p-6 flex flex-col items-center"
           >
             <h3 className="text-lg font-semibold text-gray-600 mb-2">
               {stat.name}
