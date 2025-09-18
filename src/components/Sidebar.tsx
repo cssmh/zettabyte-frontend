@@ -1,10 +1,9 @@
 "use client";
-
-import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useEffect, useRef } from "react";
 
 const menuItems = [
   { name: "Dashboard", href: "/" },
@@ -22,8 +21,8 @@ export default function Sidebar({
   const pathname = usePathname();
   const { data: session } = useSession();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024; // Use lg breakpoint
 
-  // Close sidebar on route click or outside click (mobile)
   useEffect(() => {
     if (!isMobileOpen) return;
     function handleClick(e: MouseEvent) {
@@ -41,98 +40,65 @@ export default function Sidebar({
   const navItems = [...menuItems];
   if (session) navItems.push({ name: "Profile", href: "/profile" });
 
-  // Responsive sidebar: static on desktop, modal on mobile
   return (
     <>
-      {/* Desktop sidebar */}
-      <aside className="hidden md:flex flex-col bg-gray-800 text-white w-64 h-screen sticky top-0 z-30">
-        <div className="p-4 border-b border-gray-700 flex items-center">
-          <h1 className="text-xl font-bold">Zettabyte Dashboard</h1>
-        </div>
-        <nav className="flex-1 p-2 md:p-4">
-          <ul className="space-y-1">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`block px-1 py-1 md:px-4 md:py-[10px] rounded-md transition-colors ${
-                    pathname === item.href ? "bg-gray-600" : "hover:bg-gray-600"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        {session && (
-          <div className="p-4 border-t border-gray-700">
-            <p className="text-sm text-gray-400">Logged in as</p>
-            <p className="font-medium truncate">{session.user?.email}</p>
-          </div>
-        )}
-      </aside>
-
-      {/* Mobile sidebar modal */}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            key="mobile-sidebar"
-            initial={{ x: -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-0 z-50 flex"
-            style={{ pointerEvents: "auto" }}
-          >
-            <div
-              className="flex-shrink-0 w-64 bg-gray-800 text-white h-full flex flex-col"
-              ref={sidebarRef}
-            >
-              <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-                <h1 className="text-xl font-bold">Zettabyte</h1>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="p-2 rounded hover:bg-gray-700 ml-2 text-lg"
-                  aria-label="Close menu"
-                >
-                  ✕
-                </button>
-              </div>
-              <nav className="flex-1 p-4">
-                <ul className="space-y-2">
-                  {navItems.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={`block p-3 rounded transition-colors ${
-                          pathname === item.href
-                            ? "bg-blue-600"
-                            : "hover:bg-gray-700"
-                        }`}
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-              {session && (
-                <div className="p-4 border-t border-gray-700">
-                  <p className="text-sm text-gray-400">Logged in as</p>
-                  <p className="font-medium truncate">{session.user?.email}</p>
-                </div>
-              )}
-            </div>
-            {/* Overlay */}
-            <div
-              className="flex-1 bg-black/40"
-              onClick={() => setMobileOpen(false)}
-            />
-          </motion.div>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
         )}
       </AnimatePresence>
+
+      <motion.aside
+        initial={false}
+        animate={{
+          x: isDesktop ? 0 : isMobileOpen ? 0 : "-100%",
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        ref={sidebarRef}
+        className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-gray-200 z-50 lg:translate-x-0 lg:static lg:z-auto lg:p-6"
+      >
+        <div className="p-4 border-b border-gray-200 lg:p-0 lg:border-none lg:mb-8">
+          <h1 className="text-xl font-bold text-gray-900">Zettabyte</h1>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="md:hidden absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-lg"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
+
+        <nav className="p-4 lg:p-0">
+          <ul className="space-y-2">
+            {navItems.map((item) => (
+              <motion.li
+                key={item.name}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link
+                  href={item.href}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 ${
+                    pathname === item.href
+                      ? "bg-blue-50 text-blue-700 font-semibold"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                  onClick={() => !isDesktop && setMobileOpen(false)}
+                >
+                  <span className="font-medium">{item.name}</span>
+                </Link>
+              </motion.li>
+            ))}
+          </ul>
+        </nav>
+      </motion.aside>
     </>
   );
 }

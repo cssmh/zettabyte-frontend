@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+
 export default function Home() {
   const stats = [
     { name: "Total Posts", value: "100" },
@@ -8,37 +9,40 @@ export default function Home() {
   ];
 
   return (
-    <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8"
-      >
-        <h1 className="text-3xl font-bold text-gray-800 mb-2 text-balance">
-          Welcome to Zettabyte Dashboard
-        </h1>
-        <p className="text-gray-600">
-          Manage your content and users efficiently
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="p-6 space-y-6"
+    >
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Welcome to Zettabyte Dashboard 👋
+          </h1>
+          <p className="text-gray-600">
+            Manage your content and users efficiently
+          </p>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white rounded-lg shadow-md p-4 md:p-6 flex flex-col items-center"
+            className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-100"
           >
             <h3 className="text-lg font-semibold text-gray-600 mb-2">
               {stat.name}
             </h3>
-            <p className="text-3xl font-bold text-blue-600">{stat.value}</p>
+            <p className="text-4xl font-extrabold text-blue-600">
+              {stat.value}
+            </p>
           </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

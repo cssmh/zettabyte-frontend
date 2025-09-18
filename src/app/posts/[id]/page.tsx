@@ -1,9 +1,9 @@
 "use client";
-
 import { useParams } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
 import { Post } from "@/types";
 import Loading from "@/components/Loading";
+import { motion } from "framer-motion";
 
 const SinglePostPage = () => {
   const params = useParams();
@@ -27,12 +27,21 @@ const SinglePostPage = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <article className="bg-white text-black capitalize rounded-lg shadow-md p-8">
-        <h1 className="text-2xl lg:text-3xl font-semibold mb-4">{post?.title}</h1>
-        <p className="text-gray-600 mb-6">Post ID: {id}</p>
-        <p className="text-lg leading-relaxed">{post?.body}</p>
-      </article>
+    <div className="p-6">
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-gray-100 p-8"
+      >
+        <div className="flex justify-between items-start mb-6">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 capitalize leading-tight">
+            {post?.title}
+          </h1>
+          <span className="text-sm text-gray-400 font-medium">Post #{id}</span>
+        </div>
+        <p className="text-lg leading-relaxed text-gray-700">{post?.body}</p>
+      </motion.article>
     </div>
   );
 };
