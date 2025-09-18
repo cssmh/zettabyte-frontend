@@ -2,8 +2,6 @@
 
 A dynamic admin dashboard built with **Next.js 13 (app directory)** and **React**, displaying real-time stats, charts, and recent activities fetched from [JSONPlaceholder](https://jsonplaceholder.typicode.com/) APIs.
 
----
-
 ## Features
 
 - **Dynamic Stats Grid**  
