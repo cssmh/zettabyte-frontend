@@ -35,12 +35,24 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // Handle relative URLs
+      // If we have a stored callback URL, use it
+      if (url.includes("callbackUrl")) {
+        return url;
+      }
+
+      // After login, redirect to profile
+      if (url.startsWith(baseUrl + "/api/auth")) {
+        return `${baseUrl}/profile`;
+      }
+
+      // If redirecting to a relative URL, use baseUrl
       if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allow same-origin redirects
-      else if (new URL(url).origin === baseUrl) return url;
-      // Redirect to home for external URLs
-      return baseUrl;
+
+      // If redirecting to same site, allow it
+      if (new URL(url).origin === baseUrl) return url;
+
+      // Default to profile page
+      return `${baseUrl}/profile`;
     },
   },
   pages: {

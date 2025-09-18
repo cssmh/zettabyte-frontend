@@ -15,7 +15,7 @@ export default function SignIn() {
           Sign In to Zettabyte Dashboard
         </h1>
         <button
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/profile" })}
           className="w-full flex items-center cursor-pointer justify-center gap-2 bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">

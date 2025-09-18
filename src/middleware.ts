@@ -7,5 +7,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/profile"], // Add other protected routes here
+  matcher: ["/profile"],
 };
