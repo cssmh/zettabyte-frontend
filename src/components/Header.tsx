@@ -1,17 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-// components/Header.tsx
 "use client";
 import { useSession } from "next-auth/react";
 
 const Header = ({ onMenuClick }: { onMenuClick: () => void }) => {
   const { data: session } = useSession();
-
   return (
     <header className="bg-white shadow-sm px-4 py-3 flex items-center justify-between border-b border-gray-200">
       <div className="flex items-center">
         <button
           onClick={onMenuClick}
-          className="md:hidden mr-3 p-2 rounded text-gray-600 hover:bg-gray-100"
+          className="md:hidden cursor-pointer mr-3 p-2 rounded text-gray-600 hover:bg-gray-100"
           aria-label="Open menu"
         >
           <svg

@@ -1,4 +1,3 @@
-// components/AppShell.tsx
 "use client";
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
@@ -11,7 +10,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
       <Sidebar isMobileOpen={isSidebarOpen} setMobileOpen={setSidebarOpen} />
-
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header onMenuClick={() => setSidebarOpen(true)} />

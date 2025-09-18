@@ -166,7 +166,7 @@ export default function Sidebar({
           <h1 className="text-xl font-bold text-gray-900">Zettabyte</h1>
           <button
             onClick={() => setMobileOpen(false)}
-            className="md:hidden absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-lg"
+            className="md:hidden absolute cursor-pointer top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-lg"
             aria-label="Close menu"
           >
             ✕
