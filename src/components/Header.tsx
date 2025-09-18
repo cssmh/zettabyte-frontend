@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useSession } from "next-auth/react";
-import { GiConcentricCrescents } from "react-icons/gi";
+import { IoMdMenu } from "react-icons/io";
 
 export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
   const { data: session } = useSession();
@@ -15,7 +15,7 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
             className="lg:hidden"
             aria-label="Open sidebar"
           >
-            <GiConcentricCrescents name="menu" size="md" />
+            <IoMdMenu size={20} />
           </button>
           <h1 className="text-xl font-semibold text-gray-900">
             Zettabyte Dashboard

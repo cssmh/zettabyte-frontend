@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const menuItems = [
   { name: "Dashboard", href: "/" },
@@ -21,7 +21,22 @@ export default function Sidebar({
   const pathname = usePathname();
   const { data: session } = useSession();
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024; // Use lg breakpoint
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!isMobileOpen) return;
