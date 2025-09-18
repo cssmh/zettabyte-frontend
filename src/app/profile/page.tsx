@@ -50,10 +50,6 @@ export default function Profile() {
           <h3 className="text-lg font-semibold mb-2">Account Information</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-500">User ID</p>
-              <p className="font-medium">{session.user?.id || "N/A"}</p>
-            </div>
-            <div>
               <p className="text-sm text-gray-500">Account Type</p>
               <p className="font-medium">Google OAuth</p>
             </div>
