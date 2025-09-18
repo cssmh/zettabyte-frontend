@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 
 const menuItems = [
@@ -107,7 +107,7 @@ export default function Sidebar({
   setMobileOpen: (v: boolean) => void;
 }) {
   const pathname = usePathname();
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -135,8 +135,8 @@ export default function Sidebar({
     return () => document.removeEventListener("mousedown", handleClick);
   }, [isMobileOpen, setMobileOpen]);
 
-  const navItems = [...menuItems];
-  if (session) navItems.push(profileItem);
+  const navItems = [...menuItems, profileItem];
+  // if (session) navItems.push(profileItem);
 
   return (
     <>

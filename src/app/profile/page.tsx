@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -23,9 +23,7 @@ export default function Profile() {
     );
   }
 
-  if (!session) {
-    return null;
-  }
+  if (!session) return null;
 
   return (
     <motion.div
@@ -33,7 +31,7 @@ export default function Profile() {
       animate={{ opacity: 1, y: 0 }}
       className="max-w-2xl mx-auto text-black"
     >
-      <h1 className="text-3xl font-bold mb-6 text-balance">Profile</h1>
+      <h1 className="text-3xl font-bold mb-6">Profile</h1>
       <div className="bg-white rounded-lg shadow-md p-4 md:p-6">
         <div className="flex flex-col sm:flex-row items-center mb-6">
           <img
@@ -46,7 +44,8 @@ export default function Profile() {
             <p className="text-gray-600">{session.user?.email}</p>
           </div>
         </div>
-        <div className="border-t pt-4 border-gray-300">
+
+        <div className="border-t pt-4 border-gray-300 mb-4">
           <h3 className="text-lg font-semibold mb-2">Account Information</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -55,6 +54,13 @@ export default function Profile() {
             </div>
           </div>
         </div>
+
+        <button
+          onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+          className="px-4 py-2 bg-red-600 cursor-pointer text-white rounded-lg hover:bg-red-700"
+        >
+          Logout
+        </button>
       </div>
     </motion.div>
   );
