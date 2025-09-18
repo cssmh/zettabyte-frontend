@@ -1,5 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { fetchPosts, fetchUsers, Post, User } from "@/types";
 
 interface StatCardProps {
   title: string;
@@ -129,31 +131,76 @@ const StatCard = ({
 };
 
 export default function StatsGrid() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [postsData, usersData] = await Promise.all([
+          fetchPosts(),
+          fetchUsers(),
+        ]);
+        setPosts(postsData);
+        setUsers(usersData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[1, 2, 3, 4].map((index) => (
+          <div
+            key={index}
+            className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 animate-pulse"
+          >
+            <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+            <div className="h-8 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div className="h-3 bg-gray-200 rounded w-1/3"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const totalPosts = posts.length;
+  const totalUsers = users.length;
+  const activeUsers = Math.floor(totalUsers * 0.7); // Simulate 70% active users
+  const engagementRate = Math.floor((totalPosts / totalUsers) * 10); // Simple engagement calculation
+
   const statsData = [
     {
       title: "Total Posts",
-      value: "100",
+      value: totalPosts.toString(),
       change: "+12%",
       trend: "up" as const,
       icon: "posts",
     },
     {
       title: "Total Users",
-      value: "10",
+      value: totalUsers.toString(),
       change: "+5%",
       trend: "up" as const,
       icon: "users",
     },
     {
       title: "Active Users",
-      value: "7",
+      value: activeUsers.toString(),
       change: "+3%",
       trend: "up" as const,
       icon: "users",
     },
     {
       title: "Engagement Rate",
-      value: "78%",
+      value: `${engagementRate}%`,
       change: "+8%",
       trend: "up" as const,
       icon: "dashboard",

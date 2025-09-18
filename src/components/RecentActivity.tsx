@@ -1,5 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { fetchPosts, fetchUsers, Post, User } from "@/types";
 
 interface Activity {
   id: string;
@@ -8,40 +10,69 @@ interface Activity {
   time: string;
 }
 
-interface RecentActivityProps {
-  activities?: Activity[];
-}
+export default function RecentActivity() {
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const defaultActivities: Activity[] = [
-  {
-    id: "1",
-    user: "John Doe",
-    action: "created a new post",
-    time: "2 hours ago",
-  },
-  {
-    id: "2",
-    user: "Jane Smith",
-    action: "updated user profile",
-    time: "5 hours ago",
-  },
-  {
-    id: "3",
-    user: "Mike Johnson",
-    action: "commented on a post",
-    time: "1 day ago",
-  },
-  {
-    id: "4",
-    user: "Sarah Wilson",
-    action: "deleted a comment",
-    time: "2 days ago",
-  },
-];
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [posts, users] = await Promise.all([fetchPosts(), fetchUsers()]);
 
-export default function RecentActivity({
-  activities = defaultActivities,
-}: RecentActivityProps) {
+        // Generate recent activity from posts
+        const recentActivities: Activity[] = posts
+          .slice(0, 6) // Take first 6 posts
+          .map((post: Post, index: number) => {
+            const user = users.find((u: User) => u.id === post.userId);
+            const actions = [
+              "created a new post",
+              "published an article",
+              "shared a post",
+              "updated their content",
+              "added a new blog post",
+              "posted an update",
+            ];
+
+            return {
+              id: post.id.toString(),
+              user: user?.name || `User ${post.userId}`,
+              action: actions[index % actions.length],
+              time: `${index + 1} ${index === 0 ? "hour" : "hours"} ago`,
+            };
+          });
+
+        setActivities(recentActivities);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <h3 className="text-lg font-semibold text-gray-800 mb-6">
+          Recent Activity
+        </h3>
+        <div className="space-y-4">
+          {[1, 2, 3, 4].map((index) => (
+            <div key={index} className="flex items-start p-3 rounded-lg">
+              <div className="w-10 h-10 bg-gray-200 rounded-full mr-3 animate-pulse"></div>
+              <div className="flex-1">
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

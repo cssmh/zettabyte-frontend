@@ -1,4 +1,3 @@
-// components/Modal.tsx (Enhanced)
 import { motion, AnimatePresence } from "framer-motion";
 import { User } from "@/types";
 

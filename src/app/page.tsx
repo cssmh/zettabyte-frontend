@@ -1,4 +1,3 @@
-// app/page.tsx (Updated Home Page)
 "use client";
 import { motion } from "framer-motion";
 import StatsGrid from "@/components/StatsGrid";

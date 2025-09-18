@@ -1,4 +1,3 @@
-// app/posts/[id]/page.tsx (Enhanced Single Post)
 "use client";
 import { useParams } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
