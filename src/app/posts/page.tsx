@@ -44,10 +44,10 @@ const PostsPage = () => {
   );
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 lg:p-6 space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Blog Posts</h1>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Blog Posts</h1>
           <p className="text-gray-600 mt-2">
             Discover insights and stories from our community
           </p>

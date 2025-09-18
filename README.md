@@ -23,8 +23,6 @@ A dynamic admin dashboard built with **Next.js 13 (app directory)** and **React*
   - Fully responsive layout for desktop, tablet, and mobile.  
   - Tailwind CSS used for styling and utility-first approach.
 
----
-
 ## Tech Stack
 
 - **Next.js 13** (App Router, React Server & Client Components)  
@@ -32,8 +30,6 @@ A dynamic admin dashboard built with **Next.js 13 (app directory)** and **React*
 - **Tailwind CSS** (Styling)  
 - **Framer Motion** (Animations)  
 - **JSONPlaceholder API** (Posts & Users)
-
----
 
 ## Project Structure
 

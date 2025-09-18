@@ -14,7 +14,7 @@ const UsersPage = () => {
     loading,
     error,
   } = useFetch<User[]>("https://jsonplaceholder.typicode.com/users");
-
+  
   const openModal = (user: User) => {
     setSelectedUser(user);
     setIsModalOpen(true);

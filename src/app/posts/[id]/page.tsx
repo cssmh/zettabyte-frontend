@@ -34,7 +34,7 @@ const SinglePostPage = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-2 lg:p-6">
       <div className="mb-6">
         <Link
           href="/posts"
@@ -60,7 +60,7 @@ const SinglePostPage = () => {
       <motion.article
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-lg shadow p-6 border border-gray-100"
+        className="bg-white rounded-lg shadow p-4 lg:p-6 border border-gray-100"
       >
         <div className="mb-4">
           <span className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded">

@@ -2,101 +2,31 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
+import { FiHome, FiFileText, FiUsers, FiUser, FiX } from "react-icons/fi";
 
 const menuItems = [
   {
     name: "Dashboard",
     href: "/",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        className="w-5 h-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125h9.75a1.125 1.125 0 001.125-1.125V19.5m-14.25-6.189l-.23-.23a1.5 1.5 0 00-2.122 2.122l.23.23a2.625 2.625 0 011.026-.746l-.517-.517A1.125 1.125 0 014.5 13.5M10.125 21.75V19.5m-3.75 2.25H21a.75.75 0 00.75-.75v-9c0-.621-.504-1.125-1.125-1.125h-15.75c-.621 0-1.125.504-1.125 1.125v9c0 .621.504 1.125 1.125 1.125z"
-        />
-      </svg>
-    ),
+    icon: <FiHome className="w-5 h-5" />,
   },
   {
     name: "Posts",
     href: "/posts",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        className="w-5 h-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.28-8.28z"
-        />
-      </svg>
-    ),
+    icon: <FiFileText className="w-5 h-5" />,
   },
   {
     name: "Users",
     href: "/users",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        className="w-5 h-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M19.5 10.5a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-        />
-      </svg>
-    ),
+    icon: <FiUsers className="w-5 h-5" />,
   },
 ];
 
 const profileItem = {
   name: "Profile",
   href: "/profile",
-  icon: (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      className="w-5 h-5"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-      />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4.505 20.25a.75.75 0 01-.75-.75v-2.25a4.5 4.5 0 014.5-4.5h3.75a4.5 4.5 0 014.5 4.5v2.25a.75.75 0 01-.75.75h-10.5z"
-      />
-    </svg>
-  ),
+  icon: <FiUser className="w-5 h-5" />,
 };
 
 export default function Sidebar({
@@ -107,7 +37,6 @@ export default function Sidebar({
   setMobileOpen: (v: boolean) => void;
 }) {
   const pathname = usePathname();
-  // const { data: session } = useSession();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -136,7 +65,6 @@ export default function Sidebar({
   }, [isMobileOpen, setMobileOpen]);
 
   const navItems = [...menuItems, profileItem];
-  // if (session) navItems.push(profileItem);
 
   return (
     <>
@@ -163,13 +91,22 @@ export default function Sidebar({
         className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-gray-200 z-50 lg:translate-x-0 lg:static lg:z-auto lg:p-6"
       >
         <div className="p-4 border-b border-gray-200 lg:p-0 lg:border-none lg:mb-8">
-          <h1 className="text-xl font-bold text-gray-900">Zettabyte</h1>
+          <h1 className="text-xl font-bold text-gray-900 flex items-center">
+            <svg
+              className="w-6 h-6 mr-2 text-blue-600"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M13 3H3a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2zm-8 8H3a2 2 0 0 0-2 2v2h8v-4zm10 0h-8v4h8v-4zm-8 6H3v2a2 2 0 0 0 2 2h8v-4zm10 0h-8v4h6a2 2 0 0 0 2-2v-2zm0-10h-8v4h8V7a2 2 0 0 0-2-2z" />
+            </svg>
+            Zettabyte
+          </h1>
           <button
             onClick={() => setMobileOpen(false)}
             className="md:hidden absolute cursor-pointer top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-lg"
             aria-label="Close menu"
           >
-            ✕
+            <FiX className="w-5 h-5" />
           </button>
         </div>
 
