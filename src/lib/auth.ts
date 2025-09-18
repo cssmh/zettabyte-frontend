@@ -35,9 +35,11 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // Prevent infinite nesting
+      // Handle relative URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;
-      if (new URL(url).origin === baseUrl) return url;
+      // Allow same-origin redirects
+      else if (new URL(url).origin === baseUrl) return url;
+      // Redirect to home for external URLs
       return baseUrl;
     },
   },
