@@ -24,6 +24,17 @@ export default function Home() {
             Manage your content and users efficiently
           </p>
         </div>
+        <motion.div
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 right-16 w-20 h-20 bg-blue-200 rounded-full opacity-30"
+        />
+        <motion.div
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          style={{ animationDelay: "1s" }}
+          className="absolute top-28 right-32 w-12 h-12 bg-purple-200 rounded-full opacity-40"
+        />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((stat, index) => (
